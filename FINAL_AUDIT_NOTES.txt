@@ -1,0 +1,39 @@
+FINAL PROJECT AUDIT — SYNCHRONIZED BUILD
+
+Project contents:
+- Streamlit application (app.py)
+- UCI Appliances Energy Prediction dataset
+- Jupyter notebook synchronized with the application
+- requirements.txt, README.md and Windows run helper
+
+Verified project pipeline:
+- Original dataset: 19,735 rows, 29 columns.
+- Processed dataset after creating previous_consumption: 19,734 rows.
+- Model features: 33.
+- Chronological split: 15,787 training rows and 3,947 testing rows.
+- Models: Linear Regression, Decision Tree, Random Forest, Dummy Regressor baseline.
+
+Verified metrics on the chronological held-out test set:
+- Linear Regression: MAE 28.264673, RMSE 62.026992, R2 0.535794.
+- Decision Tree: MAE 116.807702, RMSE 200.519215, R2 -3.851338.
+- Random Forest: MAE 88.236965, RMSE 122.580767, R2 -0.812985.
+- Dummy Baseline: MAE 52.686073, RMSE 91.053479, R2 -0.000328.
+
+Interpretation:
+- Linear Regression is the best of these four models on this chronological test set.
+- Negative R2 means the model performs worse than a mean-prediction reference on this held-out period.
+- previous_consumption is the preceding 10-minute Appliances target value.
+- The interactive prediction page accepts a subset of features; other features are filled using training-set medians. It is an educational estimate, not a live meter reading.
+
+Prediction consistency:
+- The notebook's final example cell now uses the same default values as the Streamlit app: hour=18, temperature=20 C, humidity=70%, previous consumption=100 Wh, Monday, March.
+- Verified Linear Regression prediction for these aligned values: approximately 85.87 Wh.
+
+Windows run:
+1. Open PowerShell in the folder containing app.py.
+2. python -m pip install -r requirements.txt
+3. python -m streamlit run app.py
+
+Notebook:
+- Open notebook/Smart_Electricity_Consumption_Prediction.ipynb.
+- Run cells from top to bottom. The last example cell uses fixed demonstration values and does not require terminal input.
